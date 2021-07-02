@@ -6,6 +6,8 @@ import { AuthenticationResult } from '@azure/msal-common';
 import { AuthError } from 'msal';
 import { LocalStorageService } from 'ngx-localstorage';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
+
 //import * as Msal from 'msal';
 
 declare var Msal: any;
@@ -28,11 +30,9 @@ export class AppComponent implements OnInit  {
     this.msalService.instance.handleRedirectPromise().then(
       res => {
         if (res != null && res.account != null) {
-          this.msalService.instance.setActiveAccount(res.account)
-          
-          console.log(res.accessToken);
-          this.token = res.accessToken;
-          this.msalService.acquireTokenSilent({ scopes: ['api://7745ea87-715d-4555-b231-acd4d20e7b98/User-Read', 'openid', 'offline_access'] })
+          this.msalService.instance.setActiveAccount(res.account)          
+          this.islogin = true;
+          this.msalService.acquireTokenSilent({ scopes: [environment.scopes, 'openid', 'offline_access'] })
             .subscribe(
               res => {
                 window.localStorage.setItem('Token', res.accessToken);
@@ -45,56 +45,24 @@ export class AppComponent implements OnInit  {
 
         }
       },
-      err => {
-        var tokenRequest = {
-          scopes: ["user.read", "mail.send", "openid", "profile", "User.Read.All"]
-        };
-        if (err.name === "InteractionRequiredAuthError") {
-           this.msalService.acquireTokenPopup(tokenRequest)
-            .subscribe(res => {
-              // get access token from response
-              // response.accessToken
-              console.log(res.idToken);
-
-              console.log(res.accessToken);
-            
-            })
-            
-        }
-      }
     );
 
   }
-    //this.msalService.handleRedirectCallback()
 
   public isLoggedIn(): boolean {
-    var item = this.msalService.instance.getActiveAccount();
-    //if (this.msalService.instance.getActiveAccount()) {
-    //  var tokenRequest = {
-    //    scopes: ["user.read", "mail.send", "openid", "profile"]
-    //  };
-    //  this.msalService.acquireTokenSilent(tokenRequest)
-    //    .subscribe(res => {
-    //      console.log(res.idToken);
-
-    //      console.log(res.accessToken);
-    //    })
-
-    //}
+    var item = this.msalService.instance.getActiveAccount();  
     return this.msalService.instance.getActiveAccount() != null;
   }
 
   login() {
-    this.msalService.loginRedirect();
-    //this.msalService.loginPopup().subscribe(
-    //  (response: AuthenticationResult) => {
-    //    this.msalService.instance.setActiveAccount(response.account)
-    //  })
+    this.msalService.loginRedirect();  
   }
 
   logout() {
-
     this.msalService.logout();
+
+    this.islogin = false;
+    window.localStorage.clear();
   }
 
   callprofile() {
@@ -106,16 +74,5 @@ export class AppComponent implements OnInit  {
     )
   }
 
-  public GetEmployeeDetails(token:any){
-    var reqHeader = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-    });
-    this.http.get<any>("http://localhost:25561/EmployeeDetail/Get")
-      .subscribe(
-        res => {
-          console.log(res);
-        });
-    
-  }
+
 }

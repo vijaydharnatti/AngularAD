@@ -12,33 +12,9 @@ import { AppComponent } from './app.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeelistComponent } from './employee-details/employee-list.component';
 import { EmployeeService } from './employee-details/employee-service';
+import { environment } from '../environments/environment';
 
-//export function MSALInstanceFactory(): IPublicClientApplication {
-//  return new PublicClientApplication({
-//    auth: {
-//      clientId: '7745ea87-715d-4555-b231-acd4d20e7b98',
-//      authority: 'https://login.microsoftonline.com/8b24551d-7c2c-4beb-8b61-95f32d9929ef',
-//      redirectUri: 'http://localhost:4200'
-//    },
-//    cache: {
-//      cacheLocation: 'sessionStorage',
-//      storeAuthStateInCookie: isIE,
 
-//    },
- 
-//  })
-//}
-
-//export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-//  const protectedResourceMap = new Map<string, Array<string>>();
-//  protectedResourceMap.set("https://graph.microsoft.com/v1.0/me", ['user-read']);
-
-//  return {
-//    interactionType: InteractionType.Redirect,
-//    protectedResourceMap
-//  };
-
-//}
 
 @NgModule({
   declarations: [
@@ -53,26 +29,25 @@ import { EmployeeService } from './employee-details/employee-service';
     HttpClientModule,
     MsalModule.forRoot(new PublicClientApplication({
       auth: {
-        clientId: '7745ea87-715d-4555-b231-acd4d20e7b98',
-        authority: 'https://login.microsoftonline.com/8b24551d-7c2c-4beb-8b61-95f32d9929ef',
-        redirectUri: 'http://localhost:4200'
+        clientId: environment.clientId,
+        authority: environment.authority,
+        redirectUri: environment.redirectUri,
+        postLogoutRedirectUri: environment.postLogoutRedirectUri
       },
       cache: {
-        cacheLocation: 'localStorage',
+        cacheLocation: environment.cacheLocation,
       }
     }), {
       interactionType: InteractionType.Popup,
       authRequest: {
-        scopes: ['user.read', 'api://7745ea87-715d-4555-b231-acd4d20e7b98/User-Read',
-        'openid',
-        'profile',]
+        scopes: [environment.scopes]
       }
     }, {
       interactionType: InteractionType.Popup,
 
       protectedResourceMap: new Map([
-        ['https://graph.microsoft.com/v1.0/me', ['user.read', "mail.send"]],
-        ['https://localhost:44331/EmployeeDetail', ['api://7745ea87-715d-4555-b231-acd4d20e7b98/User-Read']]
+        ['https://graph.microsoft.com/v1.0/me', ['user.read']],
+        ['https://localhost:44331', [environment.scopes]]
 
       ])
     }),
@@ -96,4 +71,5 @@ import { EmployeeService } from './employee-details/employee-service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

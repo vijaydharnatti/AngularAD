@@ -2,15 +2,15 @@
 <div class="container">
   <table>
     <tr>
-      <td><button (click)="login()" *ngIf="!isLoggedIn()"> Sign In </button></td>
+      <td><button (click)="login()" *ngIf="!islogin"> Sign In </button></td>
       <td>
-        <button (click)="logout()" *ngIf="isLoggedIn()"> Sign OUT </button>
+        <button (click)="logout()" *ngIf="islogin"> Sign OUT </button>
       </td>
     </tr>
   </table>
 
 
-  <button (click)="callprofile()">  profile</button>
+  <!--<button (click)="callprofile()">  profile</button>-->
   <!--<div *ngIf="!isLoggedIn()">
     <h3>You are not Logged In</h3>
   </div>
