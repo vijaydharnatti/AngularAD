@@ -32,7 +32,7 @@ export class AppComponent implements OnInit  {
           
           console.log(res.accessToken);
           this.token = res.accessToken;
-          this.msalService.acquireTokenSilent({ scopes: ['api://7745ea87-715d-4555-b231-acd4d20e7b98', 'openid', 'offline_access'] })
+          this.msalService.acquireTokenSilent({ scopes: ['api://7745ea87-715d-4555-b231-acd4d20e7b98/User-Read', 'openid', 'offline_access'] })
             .subscribe(
               res => {
                 window.localStorage.setItem('Token', res.accessToken);

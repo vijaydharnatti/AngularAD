@@ -1,3 +1,3 @@
 export const AppSettings = {
-  EmpService: 'http://localhost:25561/',
+  EmpService: 'https://localhost:44331/',
 }

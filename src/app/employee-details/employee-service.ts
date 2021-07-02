@@ -21,13 +21,11 @@ export class EmployeeService {
     this.token = window.localStorage.getItem('Token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-////      "Access- Control - Request - Method": "POST",
-////"Access - Control - Request - Headers": "origin",
-      'Authorization': "Bearer" + this.token,
+      'Authorization': "Bearer " + this.token,
 
     })
 
-    return this.http.post<any>(this.ServiceBaseUrl + "EmployeeDetail/AddEmployee", EmpDetails).pipe(
+    return this.http.post<any>(this.ServiceBaseUrl + "api/EmployeeDetail", EmpDetails, {headers}).pipe(
       tap(res => res)
     );
   }
@@ -35,9 +33,9 @@ export class EmployeeService {
     this.token = window.localStorage.getItem('Token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': "Bearer" + this.token,
+      'Authorization': "Bearer " + this.token,
     })
-    return this.http.get<any>(this.ServiceBaseUrl + "EmployeeDetail/Get").pipe(
+    return this.http.get<any>(this.ServiceBaseUrl + "api/EmployeeDetail", { headers }).pipe(
       tap(res => res)
     );
   }
