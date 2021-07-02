@@ -27,6 +27,10 @@ export class AppComponent implements OnInit  {
   constructor(private msalService: MsalService, private http: HttpClient, private router: Router) {
   }
   ngOnInit(): void {
+    if (this.msalService.instance.getAllAccounts().length > 0) {
+      this.islogin= true;
+
+    }
     this.msalService.instance.handleRedirectPromise().then(
       res => {
         if (res != null && res.account != null) {
@@ -59,10 +63,10 @@ export class AppComponent implements OnInit  {
   }
 
   logout() {
-    this.msalService.logout();
-
     this.islogin = false;
     window.localStorage.clear();
+    this.msalService.logout();
+
   }
 
   callprofile() {
