@@ -55,7 +55,8 @@ import { EmployeeService } from './employee-details/employee-service';
       auth: {
         clientId: '7745ea87-715d-4555-b231-acd4d20e7b98',
         authority: 'https://login.microsoftonline.com/8b24551d-7c2c-4beb-8b61-95f32d9929ef',
-        redirectUri: 'http://localhost:4200'      },
+        redirectUri: 'http://localhost:4200'
+      },
       cache: {
         cacheLocation: 'localStorage',
       }
@@ -71,7 +72,7 @@ import { EmployeeService } from './employee-details/employee-service';
 
       protectedResourceMap: new Map([
         ['https://graph.microsoft.com/v1.0/me', ['user.read', "mail.send"]],
-        ['http://localhost:25561/EmployeeDetail/AddEmployee', ['api://7745ea87-715d-4555-b231-acd4d20e7b98']]
+        ['http://localhost:25561/EmployeeDetail', ['api://7745ea87-715d-4555-b231-acd4d20e7b98']]
 
       ])
     }),

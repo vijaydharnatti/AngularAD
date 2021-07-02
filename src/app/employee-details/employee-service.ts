@@ -16,11 +16,15 @@ export class EmployeeService {
   constructor(public http: HttpClient) {
   }
 
+
   public EmployeeDetails(EmpDetails: any): Observable<any> {
     this.token = window.localStorage.getItem('Token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': "Bearer " + this.token,
+////      "Access- Control - Request - Method": "POST",
+////"Access - Control - Request - Headers": "origin",
+      'Authorization': "Bearer" + this.token,
+
     })
 
     return this.http.post<any>(this.ServiceBaseUrl + "EmployeeDetail/AddEmployee", EmpDetails).pipe(
@@ -28,6 +32,11 @@ export class EmployeeService {
     );
   }
   public GetEmployeeDetails(): Observable<any> {
+    this.token = window.localStorage.getItem('Token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer" + this.token,
+    })
     return this.http.get<any>(this.ServiceBaseUrl + "EmployeeDetail/Get").pipe(
       tap(res => res)
     );

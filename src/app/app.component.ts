@@ -32,7 +32,13 @@ export class AppComponent implements OnInit  {
           
           console.log(res.accessToken);
           this.token = res.accessToken;
-          window.localStorage.setItem('Token', res.accessToken);
+          this.msalService.acquireTokenSilent({ scopes: ['api://7745ea87-715d-4555-b231-acd4d20e7b98', 'openid', 'offline_access'] })
+            .subscribe(
+              res => {
+                window.localStorage.setItem('Token', res.accessToken);
+
+                console.log(res.accessToken);
+              })
 
 
           this.router.navigate(['/details']);
@@ -95,6 +101,7 @@ export class AppComponent implements OnInit  {
     this.http.get("https://graph.microsoft.com/v1.0/me").subscribe(
       res => {
         this.title = JSON.stringify(res);
+        console.log(this.title);
       }
     )
   }
