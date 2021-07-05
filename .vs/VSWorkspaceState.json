@@ -1,8 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\employee-details",
+    "\\src\\app\\Framework",
+    "\\src\\app\\Framework\\InterceptedHttp",
+    "\\src\\assets",
+    "\\src\\environments"
   ],
-  "SelectedNode": "\\src\\styles.css",
+  "SelectedNode": "\\src\\app\\Framework\\InterceptedHttp\\InterceptedHttp.service.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -13,6 +13,7 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { EmployeelistComponent } from './employee-details/employee-list.component';
 import { EmployeeService } from './employee-details/employee-service';
 import { environment } from '../environments/environment';
+import { InterceptedHttpService } from './Framework/InterceptedHttp/InterceptedHttp.service';
 
 
 
@@ -62,11 +63,11 @@ import { environment } from '../environments/environment';
       useClass: MsalInterceptor,
       multi: true
     },
-    //{
-    //  provide: MSAL_INTERCEPTOR_CONFIG,
-    //  useFactory: MSALInterceptorConfigFactory
-
-    //},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptedHttpService,
+      multi: true
+    }, 
     EmployeeService,
   ],
   bootstrap: [AppComponent]

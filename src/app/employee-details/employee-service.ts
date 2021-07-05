@@ -18,24 +18,15 @@ export class EmployeeService {
 
 
   public EmployeeDetails(EmpDetails: any): Observable<any> {
-    this.token = window.localStorage.getItem('Token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + this.token,
+   
 
-    })
-
-    return this.http.post<any>(this.ServiceBaseUrl + "api/EmployeeDetail", EmpDetails, {headers}).pipe(
+    return this.http.post<any>(this.ServiceBaseUrl + "api/EmployeeDetail", EmpDetails).pipe(
       tap(res => res)
     );
   }
   public GetEmployeeDetails(): Observable<any> {
-    this.token = window.localStorage.getItem('Token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + this.token,
-    })
-    return this.http.get<any>(this.ServiceBaseUrl + "api/EmployeeDetail", { headers }).pipe(
+   
+    return this.http.get<any>(this.ServiceBaseUrl + "api/EmployeeDetail").pipe(
       tap(res => res)
     );
   }

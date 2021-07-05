@@ -36,13 +36,7 @@ export class AppComponent implements OnInit  {
         if (res != null && res.account != null) {
           this.msalService.instance.setActiveAccount(res.account)          
           this.islogin = true;
-          this.msalService.acquireTokenSilent({ scopes: [environment.scopes, 'openid', 'offline_access'] })
-            .subscribe(
-              res => {
-                window.localStorage.setItem('Token', res.accessToken);
-
-                console.log(res.accessToken);
-              })
+         
 
 
           this.router.navigate(['/details']);
